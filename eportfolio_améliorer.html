@@ -1,0 +1,1208 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thomas Plane — ePortfolio BTS SIO SISR</title>
+<meta name="description" content="ePortfolio de Thomas Plane, étudiant BTS SIO option SISR au Lycée Turgot — profil, compétences, projets, certifications, documentation et veille technologique.">
+<meta property="og:title" content="Thomas Plane — ePortfolio BTS SIO SISR">
+<meta property="og:description" content="Profil, compétences, projets, certifications, documentation et veille technologique.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2312151a'/%3E%3Ccircle cx='9' cy='10' r='2.6' fill='%234a9eff'/%3E%3Ccircle cx='23' cy='10' r='2.6' fill='%234a9eff'/%3E%3Ccircle cx='16' cy='22' r='2.6' fill='%234a9eff'/%3E%3Cpath d='M9 10L23 10M9 10L16 22M23 10L16 22' stroke='%234a9eff' stroke-width='1.4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12151a;
+    --surface:#191d25;
+    --surface-alt:#1f2530;
+    --border:#2a2f3a;
+    --text:#e7eaee;
+    --text-muted:#8d95a3;
+    --accent:#4a9eff;
+    --accent-soft:rgba(74,158,255,0.14);
+    --accent-glow:rgba(74,158,255,0.08);
+    --ok:#35c48d;
+    --radius:10px;
+    --sidebar-w:280px;
+    --font-heading:'Space Grotesk',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',monospace;
+  }
+
+  /* ---------- Theme: Blueprint (clair) ---------- */
+  html[data-theme="blueprint"]{
+    --bg:#eef1f5;
+    --surface:#ffffff;
+    --surface-alt:#e4e9f0;
+    --border:#c4cddb;
+    --text:#1c2733;
+    --text-muted:#5b6879;
+    --accent:#d9622b;
+    --accent-soft:rgba(217,98,43,0.12);
+    --accent-glow:rgba(31,66,135,0.06);
+    --ok:#1f8a5c;
+  }
+
+  /* ---------- Theme: Terminal ambre ---------- */
+  html[data-theme="terminal"]{
+    --bg:#0a0a08;
+    --surface:#111110;
+    --surface-alt:#171614;
+    --border:#332c1e;
+    --text:#f2c879;
+    --text-muted:#8a7350;
+    --accent:#ffb238;
+    --accent-soft:rgba(255,178,56,0.14);
+    --accent-glow:rgba(255,178,56,0.07);
+    --ok:#ffb238;
+    --font-heading:'IBM Plex Mono',monospace;
+    --font-body:'IBM Plex Mono',monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scrollbar-width:thin; scrollbar-color:var(--border) var(--bg);}
+
+  /* ---------- Barre de défilement ---------- */
+  ::-webkit-scrollbar{width:9px;height:9px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:5px;border:2px solid var(--bg);background-clip:padding-box;}
+  ::-webkit-scrollbar-thumb:hover{background:var(--text-muted);}
+  ::-webkit-scrollbar-button{display:none;height:0;width:0;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    font-size:16px;
+    transition:background .2s ease, color .2s ease;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.nav-item,.identity .role{font-family:var(--font-heading);}
+  .mono{font-family:var(--font-mono);}
+
+  a{color:var(--accent);}
+
+  /* ---------- Layout ---------- */
+  .app{
+    display:flex;
+    min-height:100vh;
+  }
+
+  .sidebar{
+    width:var(--sidebar-w);
+    flex-shrink:0;
+    background:var(--surface);
+    border-right:1px solid var(--border);
+    padding:32px 24px;
+    display:flex;
+    flex-direction:column;
+    gap:32px;
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+  }
+  .sidebar.is-hidden{display:none;}
+
+  .sidebar-toggle{
+    all:unset;cursor:pointer;
+    position:absolute;top:28px;right:14px;
+    width:26px;height:26px;border-radius:50%;
+    border:1px solid var(--border);color:var(--text-muted);
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.85rem;line-height:1;
+  }
+  .sidebar-toggle:hover{color:var(--accent);border-color:var(--accent);}
+  .sidebar-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+
+  .sidebar-handle{
+    all:unset;cursor:pointer;
+    position:fixed;left:0;top:50%;transform:translateY(-50%);
+    width:22px;height:56px;
+    background:var(--surface);border:1px solid var(--border);border-left:none;
+    border-radius:0 8px 8px 0;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--text-muted);
+    font-size:0.8rem;
+    z-index:10;
+  }
+  .sidebar-handle:hover{color:var(--accent);border-color:var(--accent);}
+  .sidebar-handle:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+  .sidebar-handle[hidden]{display:none;}
+
+  @media (max-width:900px){
+    .sidebar-toggle,.sidebar-handle{display:none !important;}
+  }
+
+  .content{
+    flex:1;
+    min-width:0;
+    padding:56px 64px;
+    position:relative;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:56px 56px;
+    background-position:-1px -1px;
+    background-attachment:fixed;
+    background-color:var(--bg);
+  }
+  .content::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    left:var(--sidebar-w);
+    background:radial-gradient(ellipse 900px 500px at 20% -10%, var(--accent-glow), transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+  .panel{position:relative; z-index:1;}
+
+  /* ---------- Identity ---------- */
+  .identity .avatar{
+    width:52px;height:52px;
+    border-radius:8px;
+    background:var(--accent-soft);
+    border:1px solid var(--accent);
+    color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;
+    font-size:1rem;
+    margin-bottom:14px;
+  }
+  .identity h1{font-size:1.2rem;font-weight:600;margin:0 0 4px;}
+  .identity .role{font-size:0.85rem;color:var(--accent);margin:0 0 2px;font-weight:500;}
+  .identity .school{font-size:0.8rem;color:var(--text-muted);margin:0;}
+
+  /* ---------- Nav ---------- */
+  .nav ul{list-style:none;margin:0;padding:0;}
+  .nav li{position:relative;padding-left:20px;}
+  .nav li::before{
+    content:"";
+    position:absolute;
+    left:5px; top:22px; bottom:-2px;
+    width:1px;
+    background:var(--border);
+  }
+  .nav li:last-child::before{display:none;}
+  .node{
+    position:absolute;
+    left:0; top:14px;
+    width:11px;height:11px;
+    border-radius:50%;
+    border:1px solid var(--text-muted);
+    background:var(--surface);
+    transition:background .15s, border-color .15s;
+  }
+  .nav-item{
+    all:unset;
+    display:block;
+    width:100%;
+    padding:10px 0 10px 6px;
+    color:var(--text-muted);
+    font-size:0.92rem;
+    font-weight:500;
+    cursor:pointer;
+    border-radius:6px;
+    transition:color .15s;
+  }
+  .nav-item:hover{color:var(--text);}
+  .nav-item:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .nav-item.is-active{color:var(--text);}
+  .nav-item.is-active .node,
+  .nav-item.is-active + .node{}
+  .nav-item.is-active ~ .node{}
+  li .nav-item.is-active{color:var(--text);}
+  li:has(.nav-item.is-active) .node{
+    background:var(--accent);
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft);
+  }
+
+  /* ---------- Status + contact ---------- */
+  .status{
+    margin-top:auto;
+    display:flex;align-items:center;gap:8px;
+    font-size:0.78rem;
+    color:var(--text-muted);
+    padding-top:20px;
+    border-top:1px solid var(--border);
+  }
+  .status .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--ok);
+    box-shadow:0 0 0 0 rgba(53,196,141,0.5);
+    animation:pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(53,196,141,0.45);}
+    70%{box-shadow:0 0 0 7px rgba(53,196,141,0);}
+    100%{box-shadow:0 0 0 0 rgba(53,196,141,0);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .status .dot{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  .contact-links{display:flex;flex-direction:column;gap:6px;font-size:0.85rem;}
+  .contact-links a{color:var(--text-muted);text-decoration:none;}
+  .contact-links a:hover{color:var(--accent);}
+  .email-row{display:flex;align-items:center;gap:8px;}
+  .copy-btn{
+    all:unset;cursor:pointer;
+    font-family:var(--font-mono);font-size:0.65rem;
+    color:var(--text-muted);
+    border:1px solid var(--border);border-radius:4px;
+    padding:2px 6px;
+  }
+  .copy-btn:hover{color:var(--accent);border-color:var(--accent);}
+  .copy-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+
+  .theme-switch{display:flex;gap:4px;margin-top:4px;}
+  .theme-btn{
+    all:unset;cursor:pointer;flex:1;text-align:center;
+    font-family:var(--font-mono);font-size:0.66rem;
+    color:var(--text-muted);
+    border:1px solid var(--border);border-radius:6px;
+    padding:6px 4px;
+  }
+  .theme-btn:hover{color:var(--text);}
+  .theme-btn.is-active{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
+  .theme-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+
+  /* ---------- Add buttons + dialog ---------- */
+  .section-head{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .add-btn{
+    all:unset;cursor:pointer;
+    width:32px;height:32px;border-radius:50%;
+    border:1px solid var(--border);
+    color:var(--text-muted);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-mono);font-size:1.1rem;line-height:1;
+    flex-shrink:0;
+    transition:color .15s,border-color .15s,background .15s;
+  }
+  .add-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
+  .add-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .add-btn-inline{margin-left:10px;vertical-align:middle;width:26px;height:26px;font-size:0.95rem;}
+
+  dialog#addDialog{
+    border:none;border-radius:var(--radius);padding:0;
+    background:var(--surface);color:var(--text);
+    width:min(440px,92vw);
+  }
+  dialog#addDialog::backdrop{background:rgba(0,0,0,0.55);}
+  .dialog-inner{padding:26px;}
+  .dialog-inner h3{margin:0 0 4px;font-family:var(--font-heading);font-size:1.05rem;}
+  .dialog-inner .sub{color:var(--text-muted);font-size:0.82rem;margin:0 0 18px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:6px;font-family:var(--font-mono);}
+  .field input,.field select,.field textarea{
+    width:100%;background:var(--surface-alt);border:1px solid var(--border);
+    border-radius:6px;color:var(--text);padding:9px 10px;
+    font-family:var(--font-body);font-size:0.9rem;
+  }
+  .field textarea{resize:vertical;min-height:64px;}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px;}
+  .btn-ghost{all:unset;cursor:pointer;padding:9px 14px;border-radius:6px;color:var(--text-muted);font-size:0.85rem;}
+  .btn-ghost:hover{color:var(--text);}
+  .btn-primary{all:unset;cursor:pointer;padding:9px 16px;border-radius:6px;background:var(--accent);color:#0a0a0a;font-weight:600;font-size:0.85rem;}
+  .btn-primary:hover{opacity:.9;}
+  .btn-ghost:focus-visible,.btn-primary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .just-added{animation:popin .3s ease;}
+  @keyframes popin{from{opacity:0;transform:scale(.97);} to{opacity:1;transform:scale(1);}}
+  @media (prefers-reduced-motion:reduce){.just-added{animation:none;}}
+
+  /* ---------- Accessibilité ---------- */
+  .skip-link{
+    position:absolute; left:-9999px; top:0;
+    background:var(--accent); color:#0a0a0a;
+    padding:10px 16px; border-radius:0 0 8px 0;
+    font-family:var(--font-mono); font-size:0.85rem;
+    z-index:100;
+  }
+  .skip-link:focus{left:0;}
+  .sr-only{
+    position:absolute; width:1px; height:1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap;
+  }
+
+  .save-btn{
+    all:unset;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
+    width:100%;margin-top:6px;padding:9px;border-radius:6px;
+    border:1px solid var(--border);color:var(--text-muted);
+    font-family:var(--font-mono);font-size:0.72rem;
+    transition:color .15s,border-color .15s,background .15s;
+  }
+  .save-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
+  .save-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+
+  /* ---------- Impression ---------- */
+  @media print{
+    .sidebar,.menu-toggle,.add-btn,.add-btn-inline,dialog{display:none !important;}
+    .content{padding:0;background:none;}
+    .content::before{display:none;}
+    .app{display:block;}
+    .panel{display:none !important;max-width:none;}
+    .panel.is-active{display:block !important;}
+    body{background:#fff;color:#000;}
+  }
+
+  /* ---------- Panels ---------- */
+  .panel{display:none;max-width:920px;animation:fadein .35s ease;}
+  .panel.is-active{display:block;}
+  @keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  @media (prefers-reduced-motion:reduce){.panel{animation:none;}}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem;
+    color:var(--accent);
+    letter-spacing:0.02em;
+    margin:0 0 10px;
+  }
+  h2{font-size:1.85rem;margin:0 0 18px;font-weight:600;letter-spacing:-0.01em;}
+  .lede{color:var(--text-muted);font-size:1.02rem;max-width:60ch;}
+
+  .hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:32px;align-items:center;margin-bottom:8px;}
+  .hero-title{font-size:2.3rem;line-height:1.08;margin:0 0 20px;font-weight:600;letter-spacing:-0.015em;}
+  .hero-graphic{width:100%;max-width:280px;justify-self:center;}
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-graphic{display:none;}
+    .hero-title{font-size:1.7rem;}
+  }
+
+  /* ---------- Profil ---------- */
+  .stat-strip{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin:32px 0;
+    max-width:560px;
+  }
+  .stat{background:var(--surface);padding:18px 20px;}
+  .stat .num{font-family:'Space Grotesk';font-size:1.6rem;font-weight:700;color:var(--text);}
+  .stat .label{font-size:0.78rem;color:var(--text-muted);margin-top:2px;}
+
+  .parcours{margin-top:36px;}
+  .parcours ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--border);}
+  .parcours li{position:relative;padding:0 0 26px 24px;}
+  .parcours li::before{
+    content:"";position:absolute;left:-5px;top:4px;
+    width:9px;height:9px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--accent);
+  }
+  .parcours .when{font-family:'IBM Plex Mono';font-size:0.75rem;color:var(--text-muted);display:block;margin-bottom:2px;}
+  .parcours .what{font-weight:600;}
+  .parcours .where{color:var(--text-muted);font-size:0.92rem;}
+
+  /* ---------- Compétences ---------- */
+  .skill-groups{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px;}
+  .skill-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;}
+  .skill-card h3{display:flex;align-items:center;gap:9px;font-size:0.95rem;margin:0 0 14px;color:var(--text);}
+  .skill-icon{display:inline-flex;color:var(--accent);flex-shrink:0;}
+  .skill-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid var(--border);}
+  .skill-row:first-of-type{border-top:none;}
+  .skill-name{font-size:0.88rem;}
+  .bars{display:flex;gap:3px;}
+  .bars span{width:5px;border-radius:1px;background:var(--border);display:inline-block;}
+  .bars span:nth-child(1){height:6px;}
+  .bars span:nth-child(2){height:9px;}
+  .bars span:nth-child(3){height:12px;}
+  .bars span:nth-child(4){height:15px;}
+  .bars.lvl-1 span:nth-child(1),
+  .bars.lvl-2 span:nth-child(-n+2),
+  .bars.lvl-3 span:nth-child(-n+3),
+  .bars.lvl-4 span:nth-child(-n+4){background:var(--accent);}
+
+  .placeholder-row .skill-name{color:var(--text-muted);font-style:normal;}
+  .tag-todo{
+    font-family:'IBM Plex Mono';font-size:0.68rem;color:var(--text-muted);
+    border:1px dashed var(--border);border-radius:4px;padding:2px 6px;
+  }
+
+  /* ---------- Bento / Projets ---------- */
+  .bento{display:grid;grid-template-columns:1.3fr 1fr;grid-auto-rows:minmax(150px,auto);gap:16px;margin-top:28px;}
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:22px;
+    display:flex;flex-direction:column;
+    gap:10px;
+  }
+  .card.wide{grid-column:1 / -1;}
+  .card .tag{
+    align-self:flex-start;
+    font-family:'IBM Plex Mono';font-size:0.68rem;
+    background:var(--accent-soft);color:var(--accent);
+    padding:3px 8px;border-radius:4px;
+  }
+  .card h3{margin:0;font-size:1.05rem;}
+  .card p{margin:0;color:var(--text-muted);font-size:0.9rem;}
+  .card.draft{border-style:dashed;justify-content:center;align-items:flex-start;}
+  .card.draft h3{color:var(--text-muted);}
+  .stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;}
+  .stack span{font-family:'IBM Plex Mono';font-size:0.68rem;color:var(--text-muted);border:1px solid var(--border);border-radius:4px;padding:2px 7px;}
+
+  /* ---------- Certifications ---------- */
+  .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px;}
+  .cert{
+    display:flex;gap:14px;align-items:flex-start;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);padding:18px;
+  }
+  .cert .badge{
+    width:38px;height:38px;border-radius:50%;flex-shrink:0;
+    background:var(--surface-alt);border:1.5px solid var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono';font-size:0.72rem;color:var(--accent);
+  }
+  .cert h3{margin:0 0 4px;font-size:0.95rem;}
+  .cert p{margin:0;color:var(--text-muted);font-size:0.85rem;}
+  .cert.draft{border-style:dashed;}
+
+  /* ---------- Documentation ---------- */
+  .doc-list{margin-top:28px;border-top:1px solid var(--border);}
+  .doc-row{
+    display:flex;align-items:center;gap:16px;
+    padding:16px 4px;border-bottom:1px solid var(--border);
+  }
+  .doc-row .doc-type{
+    font-family:'IBM Plex Mono';font-size:0.7rem;color:var(--accent);
+    width:110px;flex-shrink:0;
+  }
+  .doc-row .doc-title{font-weight:500;flex:1;}
+  .doc-row .doc-meta{color:var(--text-muted);font-size:0.8rem;}
+
+  /* ---------- Veille ---------- */
+  .veille-list{margin-top:28px;display:flex;flex-direction:column;gap:14px;}
+  .veille-item{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);padding:18px 20px;
+    display:grid;grid-template-columns:120px 1fr;gap:16px;
+  }
+  .veille-item .date{font-family:'IBM Plex Mono';font-size:0.75rem;color:var(--text-muted);}
+  .veille-item .cat{
+    display:inline-block;margin-top:6px;
+    font-family:'IBM Plex Mono';font-size:0.65rem;color:var(--accent);
+    border:1px solid var(--border);border-radius:4px;padding:2px 6px;
+  }
+  .veille-item h3{margin:0 0 6px;font-size:0.98rem;}
+  .veille-item p{margin:0;color:var(--text-muted);font-size:0.88rem;}
+  .veille-item .source{font-size:0.78rem;color:var(--text-muted);margin-top:6px;display:block;}
+
+  /* ---------- Mobile ---------- */
+  .menu-toggle{display:none;}
+
+  @media (max-width:900px){
+    .app{flex-direction:column;}
+    .menu-toggle{
+      display:flex;align-items:center;gap:10px;
+      position:sticky;top:0;z-index:20;
+      background:var(--surface);border:none;border-bottom:1px solid var(--border);
+      color:var(--text);padding:16px 20px;
+      font-family:'Space Grotesk';font-size:0.95rem;font-weight:600;
+      width:100%;cursor:pointer;
+    }
+    .menu-toggle .bar{width:18px;height:1.5px;background:var(--text);position:relative;}
+    .menu-toggle .bar::before,.menu-toggle .bar::after{content:"";position:absolute;left:0;width:18px;height:1.5px;background:var(--text);}
+    .menu-toggle .bar::before{top:-5px;} .menu-toggle .bar::after{top:5px;}
+
+    .sidebar{
+      position:fixed; top:57px; left:0; right:0; bottom:0;
+      height:auto;
+      transform:translateY(-110%);
+      transition:transform .2s ease;
+      z-index:15;
+      border-right:none;
+    }
+    .sidebar.is-open{transform:translateY(0);}
+    .content{padding:28px 20px 64px;}
+    .content::before{left:0;}
+    .stat-strip,.skill-groups,.bento,.cert-grid{grid-template-columns:1fr;}
+    .veille-item{grid-template-columns:1fr;}
+    .card.wide{grid-column:auto;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Aller au contenu</a>
+<div class="app">
+
+  <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="sidebar">
+    <span class="bar"></span>
+    Thomas Plane — ePortfolio
+  </button>
+
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Masquer le menu">⟨</button>
+    <div class="identity">
+      <div class="avatar">TP</div>
+      <h1>Thomas Plane</h1>
+      <p class="role">BTS SIO — Option SISR</p>
+      <p class="school">Lycée Turgot, Paris</p>
+    </div>
+
+    <nav class="nav" aria-label="Sections du portfolio">
+      <ul>
+        <li><button class="nav-item is-active" data-panel="profil"><span class="node"></span>Profil</button></li>
+        <li><button class="nav-item" data-panel="competences"><span class="node"></span>Compétences</button></li>
+        <li><button class="nav-item" data-panel="projets"><span class="node"></span>Projets</button></li>
+        <li><button class="nav-item" data-panel="certifications"><span class="node"></span>Certifications</button></li>
+        <li><button class="nav-item" data-panel="documentation"><span class="node"></span>Documentation</button></li>
+        <li><button class="nav-item" data-panel="veille"><span class="node"></span>Veille technologique</button></li>
+      </ul>
+    </nav>
+
+    <div class="contact-links">
+      <div class="email-row">
+        <a href="mailto:planethomas5@gmail.com" id="emailLink">planethomas5@gmail.com</a>
+        <button class="copy-btn" id="copyEmail" type="button">copier</button>
+      </div>
+      <a href="https://www.linkedin.com/in/thomas-plane/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/thomas150231" target="_blank" rel="noopener">GitHub</a>
+    </div>
+
+    <div class="status">
+      <span class="dot"></span>
+      <span>Disponible pour alternance / stage</span>
+    </div>
+
+    <div class="theme-switch" role="group" aria-label="Choisir un style visuel">
+      <button class="theme-btn is-active" data-theme="console" type="button">Console</button>
+      <button class="theme-btn" data-theme="blueprint" type="button">Blueprint</button>
+      <button class="theme-btn" data-theme="terminal" type="button">Terminal</button>
+    </div>
+    <button class="save-btn" id="saveSite" type="button">↓ Enregistrer le site à jour</button>
+    <div id="liveRegion" class="sr-only" role="status" aria-live="polite"></div>
+  </aside>
+
+  <button class="sidebar-handle" id="sidebarHandle" type="button" aria-label="Afficher le menu" hidden>⟩</button>
+
+  <main class="content" id="main-content">
+
+    <!-- PROFIL -->
+    <section id="profil" class="panel is-active">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Profil</p>
+          <h2 class="hero-title">Étudiant en systèmes,<br>réseaux et infrastructure</h2>
+          <p class="lede">
+            Issu d'un Bac Pro Systèmes Numériques, je poursuis actuellement un BTS SIO
+            option SISR au Lycée Turgot (Paris). Mon parcours s'est construit autour de
+            la gestion de parc informatique, du support technique et d'environnements
+            de direction des systèmes d'information (DSI), notamment au travers de
+            plusieurs stages chez Eiffage.
+          </p>
+        </div>
+        <div class="hero-graphic" aria-hidden="true">
+          <svg viewBox="0 0 260 260" width="100%" height="100%">
+            <polygon points="130,35 212,83 212,178 130,225 48,178 48,83" fill="none" stroke="var(--border)" stroke-width="1"/>
+            <line x1="130" y1="130" x2="130" y2="35" stroke="var(--border)" stroke-width="1"/>
+            <line x1="130" y1="130" x2="212" y2="83" stroke="var(--border)" stroke-width="1"/>
+            <line x1="130" y1="130" x2="212" y2="178" stroke="var(--border)" stroke-width="1"/>
+            <line x1="130" y1="130" x2="130" y2="225" stroke="var(--border)" stroke-width="1"/>
+            <line x1="130" y1="130" x2="48" y2="178" stroke="var(--border)" stroke-width="1"/>
+            <line x1="130" y1="130" x2="48" y2="83" stroke="var(--border)" stroke-width="1"/>
+
+            <circle cx="130" cy="130" r="24" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+            <text x="130" y="134" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--accent)">TP</text>
+
+            <circle cx="130" cy="35" r="6" fill="var(--accent)"/>
+            <text x="130" y="22" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Profil</text>
+
+            <circle cx="212" cy="83" r="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+            <text x="220" y="80" text-anchor="start" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Compétences</text>
+
+            <circle cx="212" cy="178" r="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+            <text x="220" y="181" text-anchor="start" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Projets</text>
+
+            <circle cx="130" cy="225" r="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+            <text x="130" y="245" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Certifications</text>
+
+            <circle cx="48" cy="178" r="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+            <text x="40" y="181" text-anchor="end" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Documentation</text>
+
+            <circle cx="48" cy="83" r="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+            <text x="40" y="80" text-anchor="end" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Veille</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="stat-strip">
+        <div class="stat"><div class="num">3</div><div class="label">stages Eiffage</div></div>
+        <div class="stat"><div class="num">1</div><div class="label">environnement DSI</div></div>
+        <div class="stat"><div class="num mono">SISR</div><div class="label">option BTS SIO</div></div>
+      </div>
+
+      <div class="parcours">
+        <h3 style="font-size:0.95rem;color:var(--text-muted);margin-bottom:16px;">Parcours
+          <button class="add-btn add-btn-inline" type="button" data-add="parcours" aria-label="Ajouter une étape au parcours">+</button>
+        </h3>
+        <ol id="parcoursList">
+          <li>
+            <span class="when">2025 — Présent</span>
+            <span class="what">BTS SIO — option SISR</span>
+            <span class="where">Lycée Turgot — Paris 75003</span>
+            <p style="margin:6px 0 0;color:var(--text-muted);font-size:0.9rem;">Apprentissage en BTS SIO SISR pour approfondir mes connaissances en systèmes, réseaux et infrastructure.</p>
+            <div class="stack" style="margin-top:8px;"><span>GLPI</span><span>WordPress</span><span>Cisco</span><span>GitHub</span></div>
+          </li>
+          <li>
+            <span class="when">2025 — 6 semaines</span>
+            <span class="what">Stage en entreprise</span>
+            <span class="where">Eiffage Système — Saint-Ouen</span>
+            <p style="margin:6px 0 0;color:var(--text-muted);font-size:0.9rem;">Stage terrain en entreprise pour appliquer les notions vues en classe.</p>
+            <div class="stack" style="margin-top:8px;"><span>Raccordement de switch</span><span>Gestion de logiciel système</span><span>Mise en place d'équipement utilisateur</span><span>Gestion de client</span></div>
+          </li>
+          <li>
+            <span class="when">2024 — 8 semaines</span>
+            <span class="what">Stage en entreprise</span>
+            <span class="where">Eiffage Construction — Neuilly-sur-Marne</span>
+            <p style="margin:6px 0 0;color:var(--text-muted);font-size:0.9rem;">Affectation à la direction des systèmes informatiques (DSI) et exploration de la partie DevOps pour orienter mes choix professionnels.</p>
+            <div class="stack" style="margin-top:8px;"><span>Observation DevOps</span><span>Python</span><span>PowerShell</span><span>Synchronisation</span></div>
+          </li>
+          <li>
+            <span class="when">Juin 2023 — 3 semaines</span>
+            <span class="what">Stage en entreprise</span>
+            <span class="where">Eiffage Construction — Neuilly-sur-Marne</span>
+            <p style="margin:6px 0 0;color:var(--text-muted);font-size:0.9rem;">Mise en pratique des connaissances acquises en cours, première expérience de terrain.</p>
+            <div class="stack" style="margin-top:8px;"><span>Désinstallation d'antivirus</span><span>Détection de malware</span><span>Mise à jour serveur</span><span>Raccordement de baie de serveur</span></div>
+          </li>
+          <li>
+            <span class="when">Précédemment</span>
+            <span class="what">Bac Pro Systèmes Numériques</span>
+            <span class="where"><span class="tag-todo">établissement à préciser</span></span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- COMPETENCES -->
+    <section id="competences" class="panel">
+      <p class="eyebrow">Compétences</p>
+      <div class="section-head">
+        <h2>Compétences techniques</h2>
+        <button class="add-btn" type="button" data-add="competence" aria-label="Ajouter une compétence">+</button>
+      </div>
+      <p class="lede">Niveaux indicatifs à ajuster selon ton propre ressenti (barres = maîtrise).</p>
+
+      <div class="skill-groups" id="skillGroups">
+        <div class="skill-card">
+          <h3><span class="skill-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M6 8.4 12 15.6M18 8.4 12 15.6M8.4 6h7.2"/></svg></span>Réseaux &amp; infrastructure</h3>
+          <div class="skill-row"><span class="skill-name">Cisco Packet Tracer</span><span class="bars lvl-3"><span></span><span></span><span></span><span></span></span></div>
+          <div class="skill-row"><span class="skill-name">GNS3</span><span class="bars lvl-2"><span></span><span></span><span></span><span></span></span></div>
+          <div class="skill-row placeholder-row"><span class="skill-name">— à compléter</span><span class="tag-todo">niveau</span></div>
+        </div>
+
+        <div class="skill-card">
+          <h3><span class="skill-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="5" rx="1"/><rect x="4" y="14" width="16" height="5" rx="1"/><circle cx="7.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/><circle cx="7.5" cy="16.5" r="0.6" fill="currentColor" stroke="none"/></svg></span>Systèmes &amp; support</h3>
+          <div class="skill-row"><span class="skill-name">GLPI (gestion de parc)</span><span class="bars lvl-3"><span></span><span></span><span></span><span></span></span></div>
+          <div class="skill-row"><span class="skill-name">Support technique N1/N2</span><span class="bars lvl-3"><span></span><span></span><span></span><span></span></span></div>
+          <div class="skill-row"><span class="skill-name">Virtualisation</span><span class="bars lvl-2"><span></span><span></span><span></span><span></span></span></div>
+        </div>
+
+        <div class="skill-card">
+          <h3><span class="skill-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M6.5 9.5 9.5 12 6.5 14.5M12 15h5.5"/></svg></span>Outils &amp; scripting</h3>
+          <div class="skill-row"><span class="skill-name">PowerShell</span><span class="bars lvl-2"><span></span><span></span><span></span><span></span></span></div>
+          <div class="skill-row"><span class="skill-name">WordPress</span><span class="bars lvl-2"><span></span><span></span><span></span><span></span></span></div>
+          <div class="skill-row placeholder-row"><span class="skill-name">— à compléter</span><span class="tag-todo">niveau</span></div>
+        </div>
+
+        <div class="skill-card">
+          <h3><span class="skill-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 6.5v5c0 5 3.4 8.2 8 9.5 4.6-1.3 8-4.5 8-9.5v-5L12 3Z"/><path d="M9 12l2 2 4-4.2"/></svg></span>Conformité &amp; sécurité</h3>
+          <div class="skill-row"><span class="skill-name">RGPD / CNIL (MOOC)</span><span class="bars lvl-2"><span></span><span></span><span></span><span></span></span></div>
+          <div class="skill-row placeholder-row"><span class="skill-name">— à compléter</span><span class="tag-todo">niveau</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJETS -->
+    <section id="projets" class="panel">
+      <p class="eyebrow">Projets</p>
+      <div class="section-head">
+        <h2>Projets &amp; missions</h2>
+        <button class="add-btn" type="button" data-add="projet" aria-label="Ajouter un projet">+</button>
+      </div>
+      <p class="lede">Les deux cartes en pointillés sont des emplacements libres — ajoute tes projets BTS (SISR/SLAM) ou personnels.</p>
+
+      <div class="bento" id="bentoGrid">
+        <div class="card wide">
+          <span class="tag">Stage</span>
+          <h3>Gestion de parc informatique — Eiffage</h3>
+          <p>
+            Support technique et suivi du parc informatique dans un environnement
+            DSI, incluant le traitement des demandes via GLPI.
+            <span class="tag-todo">détails / périmètre exact à compléter</span>
+          </p>
+          <div class="stack"><span>GLPI</span><span>Support N1/N2</span><span>Environnement DSI</span></div>
+        </div>
+
+        <div class="card draft">
+          <span class="tag-todo">à compléter</span>
+          <h3>Titre du projet</h3>
+          <p>Description, objectifs et résultat du projet.</p>
+        </div>
+
+        <div class="card draft">
+          <span class="tag-todo">à compléter</span>
+          <h3>Titre du projet</h3>
+          <p>Description, objectifs et résultat du projet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="panel">
+      <p class="eyebrow">Certifications</p>
+      <div class="section-head">
+        <h2>Certifications &amp; formations</h2>
+        <button class="add-btn" type="button" data-add="certification" aria-label="Ajouter une certification">+</button>
+      </div>
+
+      <div class="cert-grid" id="certGrid">
+        <div class="cert">
+          <div class="badge">CI</div>
+          <div>
+            <h3>Certification(s) Cisco</h3>
+            <p>Réseaux — Packet Tracer / GNS3. <span class="tag-todo">intitulé exact à préciser</span></p>
+          </div>
+        </div>
+        <div class="cert">
+          <div class="badge">GL</div>
+          <div>
+            <h3>GLPI</h3>
+            <p>Gestion de parc informatique et ticketing.</p>
+          </div>
+        </div>
+        <div class="cert">
+          <div class="badge">RG</div>
+          <div>
+            <h3>MOOC CNIL — RGPD</h3>
+            <p>Protection des données personnelles.</p>
+          </div>
+        </div>
+        <div class="cert draft">
+          <div class="badge tag-todo" style="border-style:dashed;">+</div>
+          <div>
+            <h3>Ajouter une certification</h3>
+            <p>Titre, organisme, année.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOCUMENTATION -->
+    <section id="documentation" class="panel">
+      <p class="eyebrow">Documentation</p>
+      <div class="section-head">
+        <h2>Documentation technique</h2>
+        <button class="add-btn" type="button" data-add="documentation" aria-label="Ajouter un document">+</button>
+      </div>
+      <p class="lede">Procédures, schémas réseau ou fiches techniques rédigées en stage ou en cours — à lier vers tes PDF/pages une fois prêts.</p>
+
+      <div class="doc-list" id="docList">
+        <div class="doc-row">
+          <span class="doc-type">Procédure</span>
+          <span class="doc-title">Titre du document</span>
+          <span class="doc-meta tag-todo">à compléter</span>
+        </div>
+        <div class="doc-row">
+          <span class="doc-type">Schéma réseau</span>
+          <span class="doc-title">Titre du document</span>
+          <span class="doc-meta tag-todo">à compléter</span>
+        </div>
+        <div class="doc-row">
+          <span class="doc-type">Fiche technique</span>
+          <span class="doc-title">Titre du document</span>
+          <span class="doc-meta tag-todo">à compléter</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VEILLE -->
+    <section id="veille" class="panel">
+      <p class="eyebrow">Veille technologique</p>
+      <div class="section-head">
+        <h2>Veille technologique</h2>
+        <button class="add-btn" type="button" data-add="veille" aria-label="Ajouter une veille">+</button>
+      </div>
+      <p class="lede">Suivi régulier de sources sur les réseaux, la sécurité et l'infrastructure. Remplace les entrées ci-dessous par tes propres lectures et sources.</p>
+
+      <div class="veille-list" id="veilleList">
+        <div class="veille-item">
+          <div>
+            <span class="date">à compléter</span>
+            <span class="cat">Réseaux</span>
+          </div>
+          <div>
+            <h3>Titre de l'article ou de la ressource</h3>
+            <p>Résumé en une ou deux lignes de ce que tu en retiens.</p>
+            <span class="source">Source : à préciser</span>
+          </div>
+        </div>
+        <div class="veille-item">
+          <div>
+            <span class="date">à compléter</span>
+            <span class="cat">Cybersécurité</span>
+          </div>
+          <div>
+            <h3>Titre de l'article ou de la ressource</h3>
+            <p>Résumé en une ou deux lignes de ce que tu en retiens.</p>
+            <span class="source">Source : à préciser</span>
+          </div>
+        </div>
+        <div class="veille-item">
+          <div>
+            <span class="date">à compléter</span>
+            <span class="cat">Virtualisation / Cloud</span>
+          </div>
+          <div>
+            <h3>Titre de l'article ou de la ressource</h3>
+            <p>Résumé en une ou deux lignes de ce que tu en retiens.</p>
+            <span class="source">Source : à préciser</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<dialog id="addDialog">
+  <form class="dialog-inner" method="dialog" id="addForm">
+    <h3 id="dialogTitle">Ajouter</h3>
+    <p class="sub" id="dialogSub"></p>
+    <div id="dialogFields"></div>
+    <div class="dialog-actions">
+      <button type="button" class="btn-ghost" id="cancelAdd">Annuler</button>
+      <button type="submit" class="btn-primary">Ajouter</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+  const navItems = document.querySelectorAll('.nav-item');
+  const panels = document.querySelectorAll('.panel');
+  const sidebar = document.getElementById('sidebar');
+  const menuToggle = document.getElementById('menuToggle');
+
+  function activate(id, updateHash){
+    navItems.forEach(btn => btn.classList.toggle('is-active', btn.dataset.panel === id));
+    panels.forEach(p => p.classList.toggle('is-active', p.id === id));
+    if(updateHash) history.replaceState(null, '', '#' + id);
+    sidebar.classList.remove('is-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  navItems.forEach(btn => {
+    btn.addEventListener('click', () => activate(btn.dataset.panel, true));
+  });
+
+  menuToggle.addEventListener('click', () => {
+    const open = sidebar.classList.toggle('is-open');
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Masquer / afficher la barre latérale (desktop)
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebarHandle = document.getElementById('sidebarHandle');
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.add('is-hidden');
+    sidebarHandle.hidden = false;
+    sidebarHandle.focus();
+  });
+  sidebarHandle.addEventListener('click', () => {
+    sidebar.classList.remove('is-hidden');
+    sidebarHandle.hidden = true;
+  });
+
+  const initial = window.location.hash.replace('#', '');
+  const valid = ['profil','competences','projets','certifications','documentation','veille'];
+  if(valid.includes(initial)) activate(initial, false);
+
+  // Copier l'e-mail (secours si le client mail par défaut ne s'ouvre pas)
+  const copyBtn = document.getElementById('copyEmail');
+  copyBtn.addEventListener('click', async () => {
+    const email = 'planethomas5@gmail.com';
+    try{
+      await navigator.clipboard.writeText(email);
+    }catch(e){
+      // Repli si le presse-papiers est indisponible
+      const tmp = document.createElement('textarea');
+      tmp.value = email; document.body.appendChild(tmp);
+      tmp.select(); document.execCommand('copy'); document.body.removeChild(tmp);
+    }
+    const original = copyBtn.textContent;
+    copyBtn.textContent = 'copié !';
+    setTimeout(() => { copyBtn.textContent = original; }, 1600);
+  });
+
+  // Sélecteur de thème
+  const themeButtons = document.querySelectorAll('.theme-btn');
+  themeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.theme);
+      themeButtons.forEach(b => b.classList.toggle('is-active', b === btn));
+    });
+  });
+
+  // ---------- Boutons "+" : ajout dynamique de contenu ----------
+  const dialog = document.getElementById('addDialog');
+  const dialogTitle = document.getElementById('dialogTitle');
+  const dialogSub = document.getElementById('dialogSub');
+  const dialogFields = document.getElementById('dialogFields');
+  const addForm = document.getElementById('addForm');
+  const cancelAdd = document.getElementById('cancelAdd');
+
+  const FORMS = {
+    competence: {
+      title: 'Ajouter une compétence',
+      sub: 'Elle sera placée dans la catégorie choisie.',
+      fields: [
+        {name:'groupe', label:'Catégorie', type:'select', options:['Réseaux & infrastructure','Systèmes & support','Outils & scripting','Conformité & sécurité']},
+        {name:'nom', label:'Nom de la compétence', type:'text', required:true},
+        {name:'niveau', label:'Niveau (1 à 4)', type:'select', options:['1','2','3','4']}
+      ]
+    },
+    projet: {
+      title: 'Ajouter un projet',
+      sub: 'Apparaît dans la grille Projets.',
+      fields: [
+        {name:'tag', label:'Type (ex : Stage, Projet perso)', type:'text'},
+        {name:'titre', label:'Titre', type:'text', required:true},
+        {name:'description', label:'Description', type:'textarea'},
+        {name:'stack', label:'Outils utilisés (séparés par une virgule)', type:'text'}
+      ]
+    },
+    certification: {
+      title: 'Ajouter une certification',
+      sub: '',
+      fields: [
+        {name:'titre', label:'Intitulé', type:'text', required:true},
+        {name:'description', label:'Organisme / détail', type:'text'}
+      ]
+    },
+    documentation: {
+      title: 'Ajouter un document',
+      sub: '',
+      fields: [
+        {name:'type', label:'Type (ex : Procédure, Schéma réseau)', type:'text'},
+        {name:'titre', label:'Titre du document', type:'text', required:true},
+        {name:'meta', label:'Info (ex : lien, taille, date)', type:'text'}
+      ]
+    },
+    veille: {
+      title: 'Ajouter une veille',
+      sub: '',
+      fields: [
+        {name:'date', label:'Date', type:'text'},
+        {name:'categorie', label:'Catégorie', type:'text'},
+        {name:'titre', label:'Titre', type:'text', required:true},
+        {name:'description', label:'Résumé', type:'textarea'},
+        {name:'source', label:'Source', type:'text'}
+      ]
+    },
+    parcours: {
+      title: 'Ajouter une étape au parcours',
+      sub: '',
+      fields: [
+        {name:'periode', label:'Période', type:'text'},
+        {name:'titre', label:'Intitulé (ex : Stage en entreprise)', type:'text', required:true},
+        {name:'lieu', label:'Lieu / établissement', type:'text'},
+        {name:'description', label:'Description', type:'textarea'}
+      ]
+    }
+  };
+
+  function renderFields(fields){
+    dialogFields.innerHTML = '';
+    fields.forEach(f => {
+      const wrap = document.createElement('div');
+      wrap.className = 'field';
+      const label = document.createElement('label');
+      label.textContent = f.label;
+      label.setAttribute('for', 'f_' + f.name);
+      wrap.appendChild(label);
+
+      let input;
+      if(f.type === 'select'){
+        input = document.createElement('select');
+        f.options.forEach(opt => {
+          const o = document.createElement('option');
+          o.value = opt; o.textContent = opt;
+          input.appendChild(o);
+        });
+      } else if(f.type === 'textarea'){
+        input = document.createElement('textarea');
+      } else {
+        input = document.createElement('input');
+        input.type = 'text';
+      }
+      input.id = 'f_' + f.name;
+      input.name = f.name;
+      if(f.required) input.required = true;
+      wrap.appendChild(input);
+      dialogFields.appendChild(wrap);
+    });
+  }
+
+  function openDialog(type){
+    const cfg = FORMS[type];
+    if(!cfg) return;
+    dialog.dataset.type = type;
+    dialogTitle.textContent = cfg.title;
+    dialogSub.textContent = cfg.sub || '';
+    dialogSub.style.display = cfg.sub ? 'block' : 'none';
+    renderFields(cfg.fields);
+    dialog.showModal();
+    const firstField = dialogFields.querySelector('input, select, textarea');
+    if(firstField) firstField.focus();
+  }
+
+  document.querySelectorAll('[data-add]').forEach(btn => {
+    btn.addEventListener('click', () => openDialog(btn.dataset.add));
+  });
+  cancelAdd.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (e) => { if(e.target === dialog) dialog.close(); });
+
+  function tagList(str){
+    return (str || '').split(',').map(s => s.trim()).filter(Boolean);
+  }
+  function flash(el){
+    el.classList.add('just-added');
+    el.scrollIntoView({block:'nearest', behavior:'smooth'});
+  }
+
+  addForm.addEventListener('submit', (e) => {
+    const type = dialog.dataset.type;
+    const data = Object.fromEntries(new FormData(addForm).entries());
+
+    if(type === 'competence'){
+      const groups = document.querySelectorAll('#skillGroups .skill-card');
+      let target = null;
+      groups.forEach(g => { if(g.querySelector('h3').textContent.trim() === data.groupe) target = g; });
+      if(target){
+        const row = document.createElement('div');
+        row.className = 'skill-row just-added';
+        const lvl = data.niveau || '2';
+        row.innerHTML = `<span class="skill-name">${escapeHtml(data.nom)}</span>
+          <span class="bars lvl-${lvl}"><span></span><span></span><span></span><span></span></span>`;
+        const placeholder = target.querySelector('.placeholder-row');
+        if(placeholder) target.insertBefore(row, placeholder);
+        else target.appendChild(row);
+        flash(row);
+      }
+    }
+
+    if(type === 'projet'){
+      const card = document.createElement('div');
+      card.className = 'card just-added';
+      const stack = tagList(data.stack).map(s => `<span>${escapeHtml(s)}</span>`).join('');
+      card.innerHTML = `${data.tag ? `<span class="tag">${escapeHtml(data.tag)}</span>` : ''}
+        <h3>${escapeHtml(data.titre)}</h3>
+        ${data.description ? `<p>${escapeHtml(data.description)}</p>` : ''}
+        ${stack ? `<div class="stack">${stack}</div>` : ''}`;
+      const grid = document.getElementById('bentoGrid');
+      const firstDraft = grid.querySelector('.card.draft');
+      if(firstDraft) grid.insertBefore(card, firstDraft);
+      else grid.appendChild(card);
+      flash(card);
+    }
+
+    if(type === 'certification'){
+      const cert = document.createElement('div');
+      cert.className = 'cert just-added';
+      const initials = (data.titre || '??').trim().slice(0,2).toUpperCase();
+      cert.innerHTML = `<div class="badge">${escapeHtml(initials)}</div>
+        <div><h3>${escapeHtml(data.titre)}</h3>${data.description ? `<p>${escapeHtml(data.description)}</p>` : ''}</div>`;
+      const grid = document.getElementById('certGrid');
+      const draft = grid.querySelector('.cert.draft');
+      if(draft) grid.insertBefore(cert, draft);
+      else grid.appendChild(cert);
+      flash(cert);
+    }
+
+    if(type === 'documentation'){
+      const row = document.createElement('div');
+      row.className = 'doc-row just-added';
+      row.innerHTML = `<span class="doc-type">${escapeHtml(data.type || 'Document')}</span>
+        <span class="doc-title">${escapeHtml(data.titre)}</span>
+        <span class="doc-meta">${escapeHtml(data.meta || '')}</span>`;
+      document.getElementById('docList').appendChild(row);
+      flash(row);
+    }
+
+    if(type === 'veille'){
+      const item = document.createElement('div');
+      item.className = 'veille-item just-added';
+      item.innerHTML = `<div>
+          <span class="date">${escapeHtml(data.date || '')}</span>
+          ${data.categorie ? `<span class="cat">${escapeHtml(data.categorie)}</span>` : ''}
+        </div>
+        <div>
+          <h3>${escapeHtml(data.titre)}</h3>
+          ${data.description ? `<p>${escapeHtml(data.description)}</p>` : ''}
+          ${data.source ? `<span class="source">Source : ${escapeHtml(data.source)}</span>` : ''}
+        </div>`;
+      const list = document.getElementById('veilleList');
+      list.insertBefore(item, list.firstChild);
+      flash(item);
+    }
+
+    if(type === 'parcours'){
+      const li = document.createElement('li');
+      li.className = 'just-added';
+      li.innerHTML = `<span class="when">${escapeHtml(data.periode || '')}</span>
+        <span class="what">${escapeHtml(data.titre)}</span>
+        ${data.lieu ? `<span class="where">${escapeHtml(data.lieu)}</span>` : ''}
+        ${data.description ? `<p style="margin:6px 0 0;color:var(--text-muted);font-size:0.9rem;">${escapeHtml(data.description)}</p>` : ''}`;
+      document.getElementById('parcoursList').appendChild(li);
+      flash(li);
+    }
+
+    addForm.reset();
+    announce(FORMS[type].title.replace('Ajouter ', '').trim() + ' ajouté(e).');
+  });
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
+  const liveRegion = document.getElementById('liveRegion');
+  function announce(msg){
+    liveRegion.textContent = '';
+    setTimeout(() => { liveRegion.textContent = msg; }, 50);
+  }
+
+  // ---------- Enregistrer le site à jour (avec tes ajouts) ----------
+  document.getElementById('saveSite').addEventListener('click', () => {
+    const clone = document.documentElement.cloneNode(true);
+    clone.querySelector('#addDialog')?.removeAttribute('open');
+    const html = '<!doctype html>\n' + clone.outerHTML;
+    const blob = new Blob([html], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'eportfolio.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    announce('Fichier téléchargé.');
+  });
+</script>
+</body>
+</html>
