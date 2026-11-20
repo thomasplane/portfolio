@@ -186,6 +186,40 @@
   .cert i{font:600 .7rem var(--mono);font-style:normal;width:34px;height:34px;border-radius:8px;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;color:var(--accent);flex:none}
   .cert b{display:block;font-weight:500;font-size:.94rem}.cert small{color:var(--muted);font-size:.82rem}
 
+
+  /* ---------- 06 Veille (thème lime) ---------- */
+  #veille{--lime:#c6f432;--limebg:rgba(198,244,50,.10);--limeline:rgba(198,244,50,.45)}
+  #veille .vh{text-align:center;margin:10px 0 34px}
+  #veille .vh h2{max-width:none;color:var(--lime);margin-bottom:14px;font-family:var(--mono);font-size:clamp(1.9rem,5vw,3.3rem);letter-spacing:-.03em;text-shadow:0 0 38px rgba(198,244,50,.28)}
+  #veille .vsub{font:400 clamp(.95rem,2vw,1.2rem) var(--mono);color:#aeb6c2}
+  .vcard{max-width:880px;margin:0 auto 26px;padding:clamp(24px,4vw,40px);border:2px solid var(--lime);border-radius:30px;background:linear-gradient(180deg,rgba(198,244,50,.04),transparent 60%);box-shadow:0 0 0 1px rgba(198,244,50,.08),0 30px 80px -50px rgba(198,244,50,.45);transition:transform .45s var(--ease),box-shadow .45s}
+  .vcard:hover{transform:translateY(-4px);box-shadow:0 0 0 1px rgba(198,244,50,.2),0 40px 90px -46px rgba(198,244,50,.6)}
+  .vcard h3{display:flex;align-items:center;gap:14px;color:var(--lime);font:700 clamp(1.05rem,2.4vw,1.4rem) var(--mono)}
+  .vcard h3 svg{flex:none}
+  .vcard>p{margin:22px 0 26px;font:400 .98rem/1.85 var(--mono);color:#9aa3b0}
+  .vcard>p b{color:#fff;font-weight:700}
+  .vtiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px}
+  .vtiles span{display:flex;align-items:center;gap:12px;padding:16px 18px;border:1px solid var(--limeline);border-radius:12px;background:var(--limebg);color:var(--lime);font:500 .92rem/1.4 var(--mono);transition:transform .3s var(--ease),background .3s,box-shadow .3s}
+  .vtiles span svg{flex:none;width:20px;height:20px}
+  .vtiles span:hover{transform:translateY(-3px);background:rgba(198,244,50,.18);box-shadow:0 12px 30px -16px var(--lime)}
+  .vtop{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .vref{all:unset;cursor:pointer;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(198,244,50,.14);color:var(--lime);border:1px solid var(--limeline);transition:transform .4s var(--ease),background .2s}
+  .vref:hover{background:rgba(198,244,50,.26);transform:rotate(180deg)}
+  .vref:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+  .tl{list-style:none;margin-top:26px;position:relative;border-left:2px solid rgba(198,244,50,.25);margin-left:8px}
+  .tl li{display:flex;gap:20px;padding:0 0 24px 24px;position:relative;opacity:0;transform:translateX(-18px);transition:opacity .6s var(--ease),transform .6s var(--ease);transition-delay:calc(var(--i) * 90ms)}
+  .tl li:last-child{padding-bottom:4px}
+  .tl li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--lime);box-shadow:0 0 12px rgba(198,244,50,.6)}
+  .tl.in li{opacity:1;transform:none}
+  .tl b{flex:none;width:4.4ch;font:700 .95rem var(--mono);color:var(--lime);padding-top:1px}
+  .tl h4{font:700 1rem var(--mono);color:#fff;margin-bottom:4px}
+  .tl p{font:400 .86rem/1.6 var(--mono);color:#9aa3b0}
+  .vfeed{max-width:880px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:20px 26px;border:1px solid var(--limeline);border-radius:18px;background:var(--limebg);color:var(--lime);font:600 .96rem var(--mono);transition:transform .35s var(--ease),box-shadow .35s}
+  .vfeed span{flex:1}.vfeed em{font-style:normal;transition:transform .3s var(--ease)}
+  .vfeed:hover{transform:translateY(-4px);box-shadow:0 20px 50px -26px var(--lime)}.vfeed:hover em{transform:translateX(5px)}
+  @media(max-width:520px){.tl li{flex-direction:column;gap:2px;padding-left:20px}.vcard{border-radius:24px}}
+  @media(prefers-reduced-motion:reduce){.tl li{opacity:1;transform:none}}
+
   /* ---------- 06 Veille / 07 Contact ---------- */
   .veille{display:flex;align-items:center;gap:22px;margin-top:46px;padding:30px 32px;border:1px solid var(--line2);border-radius:18px;background:linear-gradient(135deg,var(--panel),#0c1210);transition:transform .4s var(--ease),border-color .3s,box-shadow .4s}
   .veille:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 30px 60px -36px rgba(61,220,151,.45)}
@@ -302,11 +336,22 @@
 
   <section id="veille" data-hop="6"><div class="wrap">
     <p class="hop-label">saut 6/7 <em>— 10.0.6.0/24</em></p>
-    <h2 data-split>Veille technologique</h2>
-    <p class="lede reveal" style="--i:1">Suivi régulier de sources sur les réseaux, la sécurité et l'infrastructure.</p>
-    <a class="veille reveal" style="--i:2" href="https://feedly.com/i/board/content/user/d81bdd88-bbb6-464b-89dd-f2514e2acac6/tag/30fc23a9-5194-4ae5-a64d-bf50667207ee" target="_blank" rel="noopener">
-      <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></span>
-      <div><h3>Mon tableau de veille technologique</h3><p>Articles et sources que je suis sur Feedly.</p></div><span class="go">Ouvrir Feedly ↗</span></a>
+    <div class="vh">
+      <h2 data-split>Veille Technologique</h2>
+      <p class="vsub reveal" style="--i:1">Évolution des switchs &amp; des normes Ethernet</p>
+    </div>
+    <div class="vcard reveal" style="--i:2">
+      <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span>Objectifs &amp; Thématiques</span></h3>
+      <p>Ma veille se concentre sur l'<b>évolution des switchs</b> et des <b>normes Ethernet</b> : du hub aux commutateurs actuels, avec l'arrivée des VLAN, du PoE et des débits de 100 Mb/s à 800 Gb/s. J'utilise un agrégateur de flux RSS (Feedly) pour centraliser l'information et gagner du temps.</p>
+      <div class="vtiles">
+        <span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="9" width="20" height="8" rx="2"/><path d="M6 13h.01M10 13h.01M14 13h.01M18 13h.01M6 9V6M12 9V6M18 9V6"/></svg>Évolution des switchs</span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>Normes IEEE 802.3</span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg>Débits 100 Mb → 800 Gb</span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2v5M15 2v5M6 7h12v4a6 6 0 0 1-12 0zM12 17v5"/></svg>PoE &amp; alimentation</span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M8 8l3 7M16 8l-3 7"/></svg>VLAN &amp; segmentation</span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>Flux RSS (Feedly)</span>
+      </div>
+    </div>
+    <div class="vcard reveal" style="--i:3">
+      <div class="vtop"><h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg><span>Chronologie</span></h3><button class="vref" id="vref" type="button" aria-label="Rejouer la chronologie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.3L3 16M3 21v-5h5"/></svg></button></div>
+      <ol class="tl" id="tl"><li style="--i:0"><b>1990</b><div><h4>Premier switch Ethernet</h4><p>Les ponts multiports (Kalpana) remplacent peu à peu les hubs. 10BASE-T, IEEE 802.3i.</p></div></li><li style="--i:1"><b>1995</b><div><h4>Fast Ethernet — 100 Mb/s</h4><p>IEEE 802.3u : 100BASE-TX sur paire cuivre, le standard des réseaux d'entreprise.</p></div></li><li style="--i:2"><b>1998</b><div><h4>VLAN — IEEE 802.1Q</h4><p>Un même switch segmente le réseau en plusieurs réseaux logiques.</p></div></li><li style="--i:3"><b>1999</b><div><h4>Gigabit Ethernet — 1 Gb/s</h4><p>IEEE 802.3ab : 1000BASE-T sur du câblage cuivre catégorie 5e.</p></div></li><li style="--i:4"><b>2002</b><div><h4>10 Gigabit Ethernet</h4><p>IEEE 802.3ae : le 10 Gb/s arrive d'abord en fibre optique.</p></div></li><li style="--i:5"><b>2003</b><div><h4>PoE — IEEE 802.3af</h4><p>Le switch alimente directement téléphones IP, caméras et bornes Wi-Fi.</p></div></li><li style="--i:6"><b>2010</b><div><h4>40 et 100 Gigabit</h4><p>IEEE 802.3ba : liens haut débit pour les cœurs de réseau et les datacenters.</p></div></li><li style="--i:7"><b>2016</b><div><h4>2,5 et 5 Gb/s</h4><p>IEEE 802.3bz : plus de débit sur le câblage existant, pour le Wi-Fi 6.</p></div></li><li style="--i:8"><b>2018</b><div><h4>PoE++ — IEEE 802.3bt</h4><p>Jusqu'à 90 W par port pour alimenter écrans, bornes et équipements puissants.</p></div></li><li style="--i:9"><b>2024</b><div><h4>800 Gigabit Ethernet</h4><p>IEEE 802.3df : la génération actuelle pour les réseaux d'IA et de datacenter.</p></div></li></ol>
+    </div>
+    <a class="vfeed reveal" style="--i:4" href="https://feedly.com/i/board/content/user/d81bdd88-bbb6-464b-89dd-f2514e2acac6/tag/30fc23a9-5194-4ae5-a64d-bf50667207ee" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg><span>Mon tableau de veille sur Feedly</span><em>Ouvrir ↗</em></a>
   </div></section>
 
   <section id="contact" data-hop="7"><div class="wrap">
@@ -341,6 +386,7 @@
   $$('.reveal').forEach(function(el){ if(!el.style.getPropertyValue('--i')) el.style.setProperty('--i', el.parentElement ? Math.min($$('.reveal',el.parentElement).indexOf(el),6) : 0); });
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);if(e.target.querySelector&&e.target.querySelector('[data-count]'))count(e.target);}})},{threshold:.15,rootMargin:'0px 0px -6% 0px'});
   $$('.reveal,.hero h1,h2[data-split]').forEach(function(el){io.observe(el)});
+  var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io2.unobserve(e.target)}})},{threshold:0,rootMargin:'0px 0px -12% 0px'});$$('.tl').forEach(function(el){io2.observe(el)});
   $$('.hero h1').forEach(function(h){setTimeout(function(){h.classList.add('in')},150)});
   function count(root){$$('[data-count]',root).forEach(function(el){var n=+el.dataset.count,t0=performance.now();(function f(now){var q=Math.min(1,(now-t0)/1100);el.textContent=Math.round(n*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(f);else el.textContent=n;})(t0);});}
   if(rm){$$('.reveal').forEach(function(e){e.classList.add('in')})}
@@ -369,6 +415,9 @@
 
   // Reflet qui suit le curseur sur les cartes
   document.addEventListener('pointermove',function(e){var c=e.target.closest&&e.target.closest('.card');if(!c)return;var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')},{passive:true});
+
+  // Veille : rejouer la chronologie
+  var vr=$('#vref'),tl=$('#tl');if(vr&&tl)vr.addEventListener('click',function(){tl.classList.remove('in');void tl.offsetWidth;setTimeout(function(){tl.classList.add('in')},60)});
 
   // Copier l'email
   var cp=$('#copy');cp.addEventListener('click',function(){var m=$('#mail').textContent;function ok(){cp.textContent='copié ✓';cp.classList.add('done');setTimeout(function(){cp.textContent='copier';cp.classList.remove('done')},1600)}
